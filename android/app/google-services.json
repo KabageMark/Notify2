@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1090305230658",
+    "firebase_url": "https://notify-b957b.firebaseio.com",
+    "project_id": "notify-b957b",
+    "storage_bucket": "notify-b957b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1090305230658:android:cc63ff50971c5fa280aadb",
+        "android_client_info": {
+          "package_name": "com.example.notify"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1090305230658-encv4imhcj8puul5c91d2p78i01v08rt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBjgiG8RYvx8nQhwsPsVhO-Q3urWQwcpZM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1090305230658-encv4imhcj8puul5c91d2p78i01v08rt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
