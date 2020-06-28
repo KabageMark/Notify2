@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:notify/Services/auth.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -6,11 +7,28 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+
+  final AuthService _auth = AuthService();
+
   @override
   Widget build(BuildContext context) {
     return Container(
 
      child: Scaffold(
+       appBar: AppBar(
+         title:Text('Home'),
+         backgroundColor:Colors.grey[500],
+         elevation: 0.0,
+         actions: <Widget>[
+           FlatButton.icon(
+             onPressed: () async{
+               _auth.signOut();
+             }
+             
+             , icon: Icon(Icons.person), label: Text('Logout')
+             )
+         ],
+       ),
       body:Padding(padding: EdgeInsets.fromLTRB(30, 30, 30, 0),
       child: Column(
            crossAxisAlignment: CrossAxisAlignment.start,
