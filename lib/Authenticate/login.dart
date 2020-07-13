@@ -12,10 +12,14 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
 
   final AuthService _auth = AuthService();
+
+  final _formkey = GlobalKey<FormState>();
+
   
   //text field state
   String email = '';
   String password = '';
+  String error = '';
 
   @override
   Widget build(BuildContext context) {
@@ -47,10 +51,11 @@ class _LoginState extends State<Login> {
               color: Colors.grey[800],
             ),
             Form(
-              
+              key: _formkey,
               child: Column(
                 children: <Widget>[
                   TextFormField(
+                    validator: (val) => val.isEmpty ? 'Enter valid email ' : null,
                     onChanged: (val)  {
                     setState(() {
                       email = val;
@@ -61,6 +66,7 @@ class _LoginState extends State<Login> {
                   SizedBox(height: 20,),
 
                   TextFormField(
+                    validator: (val) => val.isEmpty ? 'Enter valid password ' : null,
                     onChanged: (val)  {
                      setState(() {
                        password = val;
@@ -73,12 +79,22 @@ class _LoginState extends State<Login> {
 
                   RaisedButton(
                     onPressed: () async{
-                    print(email);
-                    print(password);
+                    if (_formkey.currentState.validate()){
+                      dynamic result = await _auth.signinwithEmailandPassword(email, password);
+                      if (result == null){
+                         setState(() {
+                           error = 'Invalid email or password';
+                         });
+                      }
+                    }
+
                     },
                     color: Colors.black,
                     child: Text( 'login' , style: TextStyle(color:Colors.white),),
                     ),
+                     
+                    SizedBox(height: 12,),
+                    Text(error ,style: TextStyle(color: Colors.red),),
                     Text('or'),
                        RaisedButton(
                     onPressed: () {

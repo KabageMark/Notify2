@@ -13,10 +13,14 @@ class Register extends StatefulWidget {
 class _RegisterState extends State<Register> {
 
   final AuthService _auth = AuthService();
+
+  final _formkey = GlobalKey<FormState>();
+
   
   //text field state
   String email = '';
   String password = '';
+  String error = '';
 
   @override
   Widget build(BuildContext context) {
@@ -37,10 +41,11 @@ class _RegisterState extends State<Register> {
               color: Colors.grey[800],
             ),
             Form(
-              
+              key: _formkey,
               child: Column(
                 children: <Widget>[
                   TextFormField(
+                    validator: (val) => val.isEmpty ? 'Enter valid email ' : null,
                     onChanged: (val)  {
                     setState(() {
                       email = val;
@@ -51,6 +56,7 @@ class _RegisterState extends State<Register> {
                   SizedBox(height: 20,),
 
                   TextFormField(
+                    validator: (val) => val.length < 6 ? 'Enter passsword more than 6 characters ' : null,
                     onChanged: (val)  {
                      setState(() {
                        password = val;
@@ -62,13 +68,22 @@ class _RegisterState extends State<Register> {
                   SizedBox(height: 30,),
 
                   RaisedButton(
-                    onPressed: () async{
-                    print(email);
-                    print(password);
+                    onPressed: () async {
+                    if (_formkey.currentState.validate()){
+                      dynamic result = await _auth.registerwithEmailandPassword(email, password);
+                      if (result == null){
+                         setState(() {
+                           error = 'Please supply valid credentials';
+                         });
+                      }
+                    }
+               
                     },
                     color: Colors.black,
                     child: Text( 'register' , style: TextStyle(color:Colors.white),),
                     ),
+                     SizedBox(height: 12,),
+                    Text(error ,style: TextStyle(color: Colors.red),),
                     Text('or'),
                        RaisedButton(
                     onPressed: ()  {

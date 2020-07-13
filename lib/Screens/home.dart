@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:notify/Screens/notes.dart';
+import 'package:notify/Screens/scan.dart';
 import 'package:notify/Services/auth.dart';
 
 class Home extends StatefulWidget {
@@ -6,9 +8,25 @@ class Home extends StatefulWidget {
   _HomeState createState() => _HomeState();
 }
 
+ List<Widget> widgetOptions = <Widget> [
+
+    new NotesHandler(),
+    new Scan(),
+  
+  ];
+
 class _HomeState extends State<Home> {
 
   final AuthService _auth = AuthService();
+  int _selectedIndex = 0;
+
+ 
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,33 +47,28 @@ class _HomeState extends State<Home> {
              )
          ],
        ),
-      body:Padding(padding: EdgeInsets.fromLTRB(30, 30, 30, 0),
-      child: Column(
-           crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-              Center(
-              child:Text('notes', style:TextStyle(fontWeight: FontWeight.bold,fontSize: 30),)
-            ),
-             Divider(
-              height: 60,
-              color: Colors.grey[800],
-            ),
-          Card(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              const ListTile(
-                title: Text('This is an example of the notes taken'),
-                subtitle: Text('Here are the notes and you can click to read them'),
-              ),
-            ],
+      body: widgetOptions.elementAt(_selectedIndex),
+            bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            title: Text('Home'),
           ),
-        )
-          ]
+          BottomNavigationBarItem(
+            icon: Icon(Icons.scanner),
+            title: Text('Scan'),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.note_add),
+            title: Text('Notes'),
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.grey[800],
+        onTap: _onItemTapped,
       ),
-      )
-
      )
     );
   }
-}
+    
+  }

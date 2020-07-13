@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:notify/Services/database.dart';
 import 'package:notify/models/user.dart';
 
 class AuthService {
@@ -29,8 +30,30 @@ class AuthService {
   }
   
      //sign in with email and password
-
+      Future signinwithEmailandPassword(String email, String password) async{
+            try {
+              AuthResult result = await _auth.signInWithEmailAndPassword(email: email, password: password);
+              FirebaseUser user = result.user;
+              _userFromFirebaseUser(user);
+            } catch (e) {
+            print(e.toString());
+            return null;
+      }
+     }
      //register with email and password
+
+     Future registerwithEmailandPassword(String email, String password) async{
+            try {
+              AuthResult result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
+              FirebaseUser user = result.user;
+              _userFromFirebaseUser(user);
+                await DatabaseService(uid: user.uid).updateNotes('Untitled', 'There are no notes posted');
+                
+            } catch (e) {
+            print(e.toString());
+            return null;
+      }
+     }
 
      //sign out
      Future signOut() async{
