@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:notify/Screens/notesviewer.dart';
 import 'package:notify/Services/database.dart';
 import 'package:notify/models/files.dart';
 
@@ -32,26 +33,37 @@ class _NotesHandlerState extends State<NotesHandler> {
                                   children: <Widget>[
                                     Center(
                                       child: Container(
-                                        width: 180,
-                                        height: 180.0,
                                       
                                          child: Card(
                                           color: Colors.white,
                                          child: Padding(
                                            padding: const EdgeInsets.fromLTRB(0,10,0,10),
-                                           child: ListTile(
-                                            title: Text(_notesData[index].title,
-                                                   style: TextStyle(
-                                                   color: Colors.black,
-                                                   fontSize: 19)
-                                                     ),
-
-                                           subtitle: Text(_notesData[index].content,
+                                           child: GestureDetector(
+                                            onTap: (){
+                                              Navigator.push(context,
+                                              MaterialPageRoute(builder: (context) => Notesviewer(note: _notesData[index])),
+                                              ); 
+                                              },
+                                                child: ListTile(
+                                              title: Text(_notesData[index].title,
+                                                      overflow: TextOverflow.ellipsis,
+                                                      maxLines: 1,
+                                                      softWrap: false,
                                                      style: TextStyle(
                                                      color: Colors.black,
-                                                     )
-                                                     )         
+                                                     fontSize: 19)
+                                                       ),
+
+                                             subtitle: Text(_notesData[index].content,
+                                                     overflow: TextOverflow.ellipsis,
+                                                      maxLines: 1,
+                                                      softWrap: false,
+                                                       style: TextStyle(
+                                                       color: Colors.black,
+                                                       )
+                                                       )         
                                   ),
+                                           ),
                                          ),
                                     )
                                         ),

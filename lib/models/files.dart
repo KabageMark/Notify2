@@ -6,3 +6,4 @@ class Notes{
   Notes({this.content,this.title});
   
 }
+

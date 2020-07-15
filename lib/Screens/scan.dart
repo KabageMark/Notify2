@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_ml_vision/firebase_ml_vision.dart';
 import 'package:notify/Screens/notes.dart';
+import 'package:notify/Services/database.dart';
 
 
 class Scan extends StatefulWidget {
@@ -29,6 +30,14 @@ class _ScanState extends State<Scan> {
         });
         
      }
+
+     //Function for posting notes on the database
+      void _submitNotes(String text,title ) async{
+                   
+          await DatabaseService().updateNotes(text,title);
+          notesController.clear();
+
+      }
 
 
   Future _readText() async{
@@ -112,8 +121,12 @@ if ( scan == true ) {
         children: <Widget>[
            Text(_text,),
            Center(
-           child:TextFormField( initialValue: 'title' ,  maxLines: null, keyboardType: TextInputType.multiline,controller: notesController,)
-
+           child:TextFormField(
+              maxLines: null,
+              keyboardType: TextInputType.multiline,controller: notesController,
+              validator: (val) => val.isEmpty ? 'Please enter a title ' : null,
+              )
+                                                 
             ),
           RaisedButton(
             onPressed: () {
@@ -133,7 +146,8 @@ if ( scan == true ) {
      ),   
        floatingActionButton: RaisedButton(
       onPressed: () {
-         _readText();
+         _submitNotes(_text, notesController.text);
+         Navigator.push(context, MaterialPageRoute(builder: (context) => NotesHandler()));
         
       },
       child:Text('Save',style: TextStyle(color:Colors.white),),
