@@ -34,9 +34,8 @@ class _HomeState extends State<Home> {
 
      child: Scaffold(
        appBar: AppBar(
-         title:Text('Home'),
-         backgroundColor:Colors.grey[500],
-         elevation: 0.0,
+         title:Text('Notify' , style: TextStyle(color: Colors.black, fontStyle: FontStyle.italic)),
+         backgroundColor:Colors.green[300],
          actions: <Widget>[
            FlatButton.icon(
              onPressed: () async{
@@ -51,20 +50,16 @@ class _HomeState extends State<Home> {
             bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
+            icon: Icon(Icons.note),
             title: Text('Home'),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.scanner),
-            title: Text('Scan'),
-          ),
-          BottomNavigationBarItem(
             icon: Icon(Icons.note_add),
-            title: Text('Notes'),
+            title: Text('Scan'),
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.grey[800],
+        selectedItemColor: Colors.green[400],
         onTap: _onItemTapped,
       ),
      )
