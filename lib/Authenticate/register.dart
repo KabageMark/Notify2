@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:notify/Services/auth.dart';
 import 'package:notify/decoration/decoration.dart';
+import 'package:google_fonts/google_fonts.dart';
+
 
 class Register extends StatefulWidget {
 
@@ -35,7 +37,7 @@ class _RegisterState extends State<Register> {
 
               Center(
                   child: 
-                  Text('Register' ,style:TextStyle(fontWeight: FontWeight.bold,fontSize: 30),),
+                  Text('Register' ,style:GoogleFonts.fredokaOne( fontWeight: FontWeight.bold,fontSize: 30,)),
               ),
              
                      Divider(

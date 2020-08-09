@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:notify/Services/auth.dart';
 import 'package:notify/decoration/decoration.dart';
+import 'package:google_fonts/google_fonts.dart';
+
 
 class Login extends StatefulWidget {
   final Function toggleview;
@@ -34,7 +36,7 @@ class _LoginState extends State<Login> {
               
               Center(
                   child: 
-                  Text('Login' ,style:TextStyle(fontWeight: FontWeight.bold,fontSize: 30),),
+                  Text('login' ,style:GoogleFonts.fredokaOne( fontWeight: FontWeight.bold,fontSize: 30,)),
               ),
           
               Divider(

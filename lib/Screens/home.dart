@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:notify/Screens/notes.dart';
 import 'package:notify/Screens/scan.dart';
 import 'package:notify/Services/auth.dart';
+import 'package:google_fonts/google_fonts.dart';
+
 
 class Home extends StatefulWidget {
   @override
@@ -34,7 +36,7 @@ class _HomeState extends State<Home> {
 
      child: Scaffold(
        appBar: AppBar(
-         title:Text('Notify' , style: TextStyle(color: Colors.black, fontStyle: FontStyle.italic)),
+         title:Text('Notify' ,style:GoogleFonts.kaushanScript()),
          backgroundColor:Colors.green[300],
          actions: <Widget>[
            FlatButton.icon(

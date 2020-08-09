@@ -5,6 +5,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:firebase_ml_vision/firebase_ml_vision.dart';
 import 'package:notify/Screens/notes.dart';
 import 'package:notify/Services/database.dart';
+import 'package:notify/decoration/decoration.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 
 class Scan extends StatefulWidget {
@@ -115,38 +117,57 @@ if ( scan == true ) {
 
  return Container(
       child:Scaffold(
-     body: SingleChildScrollView(
-            child: Column(
-       mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-           Text(_text,),
-           Center(
-           child:TextFormField(
-              maxLines: null,
-              keyboardType: TextInputType.multiline,controller: notesController,
-              validator: (val) => val.isEmpty ? 'Please enter a title ' : null,
-              )
-                                                 
-            ),
-          RaisedButton(
-            onPressed: () {
-              setState(() {
-                scan = true;
-                _text = '';
-              });
+     body: Padding(
+       padding: const EdgeInsets.fromLTRB(30, 30, 30, 0,),
+       child: SingleChildScrollView(
+              child: Column(
+         mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+             
+             Center(
+             child:TextFormField(
+                decoration: textInputDecoration.copyWith(hintText:'Please enter a title'),
+                keyboardType: TextInputType.multiline,controller: notesController,
+                validator: (val) => val.isEmpty ? 'Please enter a title ' : null,
+                )
+                                                   
+              ),
+
+              SizedBox(height: 20,),
+
               
-            },
-            child:Text('Reset',style: TextStyle(color:Colors.white),),
-            color: Colors.black,
+              //This are the scanned notes from the Image
+               Card(
+                child: InkWell(
+                  splashColor: Colors.blue.withAlpha(30),
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Text(_text, style:GoogleFonts.cormorantGaramond(fontSize: 20)),
+                    ),
+                  
+                ),
+               ),
+
+            RaisedButton(
+              onPressed: () {
+                setState(() {
+                  scan = true;
+                  _text = '';
+                });
+                
+              },
+              child:Text('Reset',style: TextStyle(color:Colors.white),),
+              color: Colors.black,
     )
 
     ],
+         ),
+         
        ),
-       
      ),   
        floatingActionButton: RaisedButton(
       onPressed: () {
-         _submitNotes(_text, notesController.text);
+         _submitNotes(notesController.text , _text );
          Navigator.push(context, MaterialPageRoute(builder: (context) => NotesHandler()));
         
       },
